@@ -29,7 +29,7 @@ function main(params) {
       privateKey: params.private_key
     };
     if(typeof(config.privateKey) !== "object")
-      return "Invalid format of private_key"
+      reject({"message":"Invalid format of private_key"})
     config.privateKey = config.privateKey.join('\n');
 
     auth(config)
@@ -44,7 +44,7 @@ function main(params) {
 }
 
 function formatResponse(jwtResponse, params) {
-  var res = {
+  let res = {
       accessToken: jwtResponse.access_token,
       accessTokenExpiry: jwtResponse.expires_in
   }
@@ -57,7 +57,7 @@ function formatResponse(jwtResponse, params) {
 }
 
 function _fail_on_missing(param_names, params, reject) {
- for(var param_name of param_names)
+ for(let param_name of param_names)
    if (params[param_name] == null || typeof(params[param_name]) == "undefined") {
      reject({
        "message": "Parameter " + param_name + " is required."
