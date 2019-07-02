@@ -23,9 +23,9 @@ chai.should();
 
 const commonParams = {
   "jwt_client_id": "a70b86e38a324b9d87cab8c074ecf69a",
-  "jwt_client_secret": "fb0b9824-9edd-442d-aa98-3a1ff0eb1b41",
-  "technical_account_id": "A46F3D7B5C0F4B5C0A495EE9@techacct.adobe.com",
-  "org_id": "BA3E5257595416580A495C6D@AdobeOrg",
+  "jwt_client_secret": "dummysecret",
+  "technical_account_id": "dummy@techacct.adobe.com",
+  "org_id": "dummy@AdobeOrg",
   "meta_scopes": ["ent_analytics_bulk_ingest_sdk","ent_campaign_sdk"],
   "private_key": [
                   "-----BEGIN RSA PRIVATE KEY-----",
