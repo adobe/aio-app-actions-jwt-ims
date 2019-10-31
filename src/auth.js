@@ -25,8 +25,8 @@ function main(params) {
       clientSecret: params.jwt_client_secret,
       technicalAccountId: params.technical_account_id,
       orgId: params.org_id,
-      metaScopes: params.meta_scopes,
-      privateKey: params.private_key
+      metaScopes: typeof(params.meta_scopes)==="string" && params.meta_scopes.length > 0 ? JSON.parse(params.meta_scopes) : params.meta_scopes,
+      privateKey: typeof(params.private_key)==="string" && params.private_key.length > 0 ? JSON.parse(params.private_key) : params.private_key
     };
     if(typeof(config.privateKey) !== "object")
       reject({"message":"Invalid format of private_key"})
