@@ -3,3 +3,5 @@ node_modules
 ims-jwt*.*
 actions-jwt-ims-*.js
 junit.xml
+package-lock.json
+dist

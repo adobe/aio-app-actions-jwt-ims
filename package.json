@@ -5,7 +5,7 @@
   "main": "./src/auth.js",
   "scripts": {
     "postinstall": "",
-    "prepublish": "browserify -r ${npm_package_main}:main-action --node > ${npm_package_name}-${npm_package_version}.js && npm run remove_pkginfo && npm run whisk_wrapper",
+    "prepublish": "webpack",
     "posttest": "eslint src",
     "test": "npm run unit-tests",
     "unit-tests": "jest --ci",
@@ -13,6 +13,7 @@
     "whisk_wrapper": "echo \"var main = require('main-action').default;\" >> ${npm_package_name}-${npm_package_version}.js"
   },
   "dependencies": {
+    "@adobe/aio-lib-core-logging": "^1.0.0",
     "@adobe/jwt-auth": "^0.0.5",
     "encoding": "^0.1.12",
     "replace": "^1.1.0"
@@ -38,7 +39,9 @@
     "jest-junit": "^5.0.0",
     "nock": "^9.0.2",
     "request": "^2.79.0",
-    "resource-router-middleware": "^0.6.0"
+    "resource-router-middleware": "^0.6.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "browserify": {
     "transform": [

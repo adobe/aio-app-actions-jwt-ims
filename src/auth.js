@@ -9,7 +9,8 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-const auth = require('@adobe/jwt-auth');
+const auth = require('@adobe/jwt-auth')
+const logger = require('@adobe/aio-lib-core-logging')('auth-jwt', { level: process.env.LOG_LEVEL })
 
 /**
  + * The entry point for the action.
@@ -28,8 +29,10 @@ function main(params) {
       metaScopes: typeof(params.meta_scopes)==="string" && params.meta_scopes.length > 0 ? JSON.parse(params.meta_scopes) : params.meta_scopes,
       privateKey: typeof(params.private_key)==="string" && params.private_key.length > 0 ? JSON.parse(params.private_key) : params.private_key
     };
-    if(typeof(config.privateKey) !== "object")
+    if(typeof(config.privateKey) !== "object"){
+      logger.error("Invalid format of private_key")
       reject({"message":"Invalid format of private_key"})
+    }
     config.privateKey = config.privateKey.join('\n');
 
     auth(config)
@@ -59,6 +62,7 @@ function formatResponse(jwtResponse, params) {
 function _fail_on_missing(param_names, params, reject) {
  for(let param_name of param_names)
    if (params[param_name] == null || typeof(params[param_name]) == "undefined") {
+     logger.error("Parameter " + param_name + " is required.")
      reject({
        "message": "Parameter " + param_name + " is required."
      });
