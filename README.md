@@ -8,7 +8,7 @@
 This module helps in creating an IMS service token
 
 ## Usage
-This can be used for both instant token generation and also to persist the tokens for later retrieval (in combination with a persistence action like https://git.corp.adobe.com/CNA/openwhisk-cache-dynamodb).
+This can be used for both instant token generation and also to persist the tokens for later retrieval (in combination with a persistence action like https://github.com/adobe/aio-app-auth-cache).
 The mandatory parameters are
 ```
 jwt_client_id
