@@ -1,3 +1,5 @@
+[![Version](https://img.shields.io/npm/v/@adobe/aio-app-actions-jwt-ims.svg)](https://npmjs.org/package/@adobe/aio-app-actions-jwt-ims)
+[![Downloads/week](https://img.shields.io/npm/dw/@adobe/aio-app-actions-jwt-ims.svg)](https://npmjs.org/package/@adobe/aio-app-actions-jwt-ims)
 [![Build Status](https://travis-ci.com/adobe/adobeio-cna-actions-jwt-ims.svg?branch=master)](https://travis-ci.com/adobe/adobeio-cna-actions-jwt-ims)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
