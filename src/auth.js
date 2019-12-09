@@ -51,7 +51,8 @@ function formatResponse(jwtResponse, params) {
       accessToken: jwtResponse.access_token,
       accessTokenExpiry: jwtResponse.expires_in
   }
-  if(params.persistence && params.persistence === 'true'){
+  let persistence = (params.persistence || 'false').toString().toLowerCase()
+  if(persistence === 'true'){
     res.provider = params.provider || "adobe"
     res.profileID = params.jwt_client_id
     res.refreshToken = "NA"
