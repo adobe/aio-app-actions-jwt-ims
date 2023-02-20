@@ -39,7 +39,7 @@
     "jest-junit": "^5.0.0",
     "nock": "^9.0.2",
     "request": "^2.79.0",
-    "resource-router-middleware": "^0.6.0",
+    "resource-router-middleware": "^0.7.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   },
