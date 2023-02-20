@@ -13,7 +13,7 @@
     "whisk_wrapper": "echo \"var main = require('main-action').default;\" >> ${npm_package_name}-${npm_package_version}.js"
   },
   "dependencies": {
-    "@adobe/aio-lib-core-logging": "^1.0.0",
+    "@adobe/aio-lib-core-logging": "^2.0.0",
     "@adobe/jwt-auth": "^0.3.1",
     "encoding": "^0.1.12",
     "replace": "^1.1.0"
