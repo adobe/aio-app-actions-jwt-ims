@@ -11,7 +11,7 @@
     "whisk_wrapper": "echo \"const main = require('main-action');\" >> ${npm_package_name}-${npm_package_version}.js"
   },
   "dependencies": {
-    "@adobe/aio-lib-core-logging": "^1.0.0",
+    "@adobe/aio-lib-core-logging": "^2.0.1",
     "@adobe/jwt-auth": "^0.3.1"
   },
   "devDependencies": {
