@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Adobe. All rights reserved.
+Copyright 2023 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,33 +17,31 @@ const logger = require('@adobe/aio-lib-core-logging')('auth-jwt', { level: proce
  + * @param params Input object
  + * @returns {Promise}
  + */
-function main(params) {
-  return new Promise((resolve,reject)=>{
-    if (_fail_on_missing(["jwt_client_id","jwt_client_secret","technical_account_id","org_id","meta_scopes","private_key"], params, reject) ) return
+async function main(params) {
+  _fail_on_missing(["jwt_client_id","jwt_client_secret","technical_account_id","org_id","meta_scopes","private_key"], params)
 
-    const config = {
-      clientId: params.jwt_client_id,
-      clientSecret: params.jwt_client_secret,
-      technicalAccountId: params.technical_account_id,
-      orgId: params.org_id,
-      metaScopes: typeof(params.meta_scopes)==="string" && params.meta_scopes.length > 0 ? JSON.parse(params.meta_scopes) : params.meta_scopes,
-      privateKey: typeof(params.private_key)==="string" && params.private_key.length > 0 ? JSON.parse(params.private_key) : params.private_key
-    };
-    if(typeof(config.privateKey) !== "object"){
-      logger.error("Invalid format of private_key")
-      reject({"message":"Invalid format of private_key"})
-    }
-    config.privateKey = config.privateKey.join('\n');
+  const config = {
+    clientId: params.jwt_client_id,
+    clientSecret: params.jwt_client_secret,
+    technicalAccountId: params.technical_account_id,
+    orgId: params.org_id,
+    metaScopes: typeof(params.meta_scopes)==="string" && params.meta_scopes.length > 0 ? JSON.parse(params.meta_scopes) : params.meta_scopes,
+    privateKey: typeof(params.private_key)==="string" && params.private_key.length > 0 ? JSON.parse(params.private_key) : params.private_key
+  }
 
-    auth(config)
-      .then(response => {
-        if(response.access_token)
-          resolve(formatResponse(response, params))
-        else
-          reject(response)
-      })
-      .catch(error => reject(error));
-  });
+  if(typeof(config.privateKey) !== "object"){
+    logger.error("Invalid format of private_key")
+    throw new Error("Invalid format of private_key")
+  }
+
+  config.privateKey = config.privateKey.join('\n')
+
+  const response = await auth(config)
+  if (response.access_token) {
+    return (formatResponse(response, params))
+  } else {
+    throw new Error('access_token not found in response')
+  }
 }
 
 function formatResponse(jwtResponse, params) {
@@ -60,15 +58,17 @@ function formatResponse(jwtResponse, params) {
   return res
 }
 
-function _fail_on_missing(param_names, params, reject) {
- for(let param_name of param_names)
+function _fail_on_missing(param_names, params) {
+ const errors = []
+ for(let param_name of param_names) {
    if (params[param_name] == null || typeof(params[param_name]) == "undefined") {
      logger.error("Parameter " + param_name + " is required.")
-     reject({
-       "message": "Parameter " + param_name + " is required."
-     });
-     return true
+     errors.push(param_name)
    }
- return false
+  }
+  if (errors.length > 0) {
+    throw new Error(`Parameters required: ${errors.join(',')}`)
+  }
 }
-export default main;
+
+module.exports = main
